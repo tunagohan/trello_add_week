@@ -7,7 +7,7 @@ member -> board -> lane -> card
 
 という流れになっています。
 
-## member / board編
+## 初回設定
 
 ### KEYの取得
 
@@ -15,15 +15,21 @@ member -> board -> lane -> card
 
 ### API TOKENの発行
 
-`https://trello.com/1/authorize?key=<上で取得したKey>&name=&expiration=never&response_type=token&scope=read,write`
+```
+
+https://trello.com/1/authorize?key=<上で取得したKey>&name=&expiration=never&response_type=token&scope=read,write
+
+```
 
 キーを取得した後上のURLを完成させて ブラウザにペーストしましょう。
+
+注意: ログイン状態でないと表示されません。
 
 画面が表示されるので、「Allow」をクリックします。
 
 トークンが表示されますので、これをメモしましょう。
 
-### direnv などの環境変数編
+### direnv
 
 ```
 
@@ -33,58 +39,40 @@ export USERNAME=
 
 ```
 
-ここまでくれば上記を埋められるはずなので埋めてください。
-
 ### 実行
 
 ```
 
-ruby fetch_board_id.rb
+$ ruby provisioning/get_lane_id.rb
+
 
 {"name"=>"Trelloへようこそ", "id"=>"xxxxxxxxxxxxxxxxxxxxxxxxxx"}
 
-```
+------------------------------
+対象のボードのIDを入力してください。
+対象ボードIDは上記で表示されているIDのいずれかをコピペし入力してください。
 
-idが取得できるので対象のボードIDをメモしておきましょう
+board_id: xxxxxxxxxxxxxxxxxxxxxxxxxx
 
-
-## lane編
-
-ボードのIDが取得できたので追加したいレーンのID取得しましょう
-
-### direnv などの環境変数編
-
-上記のIDをBOARD_IDに入れてください。
-
-```
-
-export KEY=
-export TOKEN=
-export USERNAME=
-export BOARD_ID=
-
-```
-
-### 実行
-
-```
-
-ruby fetch_lane_id.rb
+Success.
+------------------------------
 
 {"id"=>"xxxxxxxxxxxxxxxx", "name"=>"WIP"}
 {"id"=>"xxxxxxxxxxxxxxxx", "name"=>"Reviewing"}
 {"id"=>"xxxxxxxxxxxxxxxx", "name"=>"Waiting for Release"}
 {"id"=>"xxxxxxxxxxxxxxxx", "name"=>"Done"}
 
+
+※ レーンIDを direnv などで環境変数として登録してください。
+
+Finish.
+
 ```
 
-追加したいレーンのIDをメモしておきましょう
+レーンIDが取得できるので対象のレーンIDをdirenvなどで環境変数として登録します。
 
-## 一週間分の曜日をAPI経由で追加
 
-ここまでくれば好きなレーンに追加ができてしまいます
-
-### direnv などの環境変数編
+### direnv
 
 上記のIDをLANE_IDに入れてください。
 
@@ -93,17 +81,7 @@ ruby fetch_lane_id.rb
 export KEY=
 export TOKEN=
 export USERNAME=
-export BOARD_ID=
+# 追加
 export LANE_ID=
 
 ```
-
-### 実行
-
-```
-
-ruby trello_add_week.rb
-
-```
-
-追加されているはずなのでみてみてください。

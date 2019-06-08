@@ -8,12 +8,13 @@ require './lib/request'
 #
 # example:
 #   require './lib/lane_id'
-#   LaneId.get
+#   board_id = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+#   LaneId.get(board_id: board_id)
 #
 
 class LaneId
   class << self
-    def get
+    def get(board_id:)
       # validation check
       missing_env_list = validate_check
       unless missing_env_list.size.zero?
@@ -23,26 +24,25 @@ class LaneId
       end
 
       # execute
-      self.new.get
+      self.new(board_id: board_id).get
     end
 
     def validate_check
       missing_env = []
       missing_env.push('KEY') if ENV['KEY'].nil?
       missing_env.push('TOKEN') if ENV['TOKEN'].nil?
-      missing_env.push('BOARD_ID') if ENV['BOARD_ID'].nil?
       return missing_env
     end
   end
 
   attr_reader :end_point, :target, :key, :token, :board_id, :client
 
-  def initialize
+  def initialize(board_id:)
     @end_point = 'https://trello.com/1'
     @target = 'boards'
     @key = ENV['KEY']
     @token = ENV['TOKEN']
-    @board_id = ENV['BOARD_ID']
+    @board_id = board_id
     @client = Request.build
   end
 
