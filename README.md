@@ -85,3 +85,19 @@ export USERNAME=
 export LANE_ID=
 
 ```
+
+## 実行 (上記で指定したレーンに平日の日付を入れる)
+
+どの曜日にいたとしても月曜日始まりで日付の一覧を指定したレーンに出力します。
+
+```
+
+$ ruby trello_add_weekday_to_specified_lane.rb
+
+posted: 06月10日 (月)
+posted: 06月11日 (火)
+posted: 06月12日 (水)
+posted: 06月13日 (木)
+posted: 06月14日 (金)
+
+```
