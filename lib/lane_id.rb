@@ -20,7 +20,7 @@ class LaneId
       unless missing_env_list.size.zero?
         puts "Missing Environments : #{missing_env_list.join(',')}"
         puts "Please execute again after setting."
-        return exit!
+        exit!
       end
 
       # execute
@@ -31,7 +31,8 @@ class LaneId
       missing_env = []
       missing_env.push('KEY') if ENV['KEY'].nil?
       missing_env.push('TOKEN') if ENV['TOKEN'].nil?
-      return missing_env
+
+      missing_env
     end
   end
 
@@ -39,18 +40,17 @@ class LaneId
 
   def initialize(board_id:)
     @end_point = 'https://trello.com/1'
-    @target = 'boards'
-    @key = ENV['KEY']
-    @token = ENV['TOKEN']
-    @board_id = board_id
-    @client = Request.build
+    @target    = 'boards'
+    @key       = ENV['KEY']
+    @token     = ENV['TOKEN']
+    @board_id  = board_id
+    @client    = Request.build
   end
 
   def get
-    url = "#{end_point}/#{target}/#{board_id}/lists?key=#{key}&token=#{token}&fields=name"
+    url      = "#{end_point}/#{target}/#{board_id}/lists?key=#{key}&token=#{token}&fields=name"
     response = client.get(url: url)
-    parsed_body = parse_body(body: response.body)
-    return parsed_body
+    parse_body(body: response.body)
   end
 
   def parse_body(body:)

@@ -36,28 +36,28 @@ class Request
 
   def get(url:)
     uri = create_uri(url: url)
-    return get_response(uri: uri)
+    get_response(uri: uri)
   end
 
   def post(url:)
     uri = create_uri(url: url)
-    return post_request(uri: uri)
+    post_request(uri: uri)
   end
 
   private
 
   def create_uri(url:)
     encoded_uri = URI.encode(url)
-    return URI.parse(encoded_uri)
+    URI.parse(encoded_uri)
   end
 
   def get_response(uri:)
-    return Net::HTTP.get_response(uri)
+    Net::HTTP.get_response(uri)
   end
 
   def post_request(uri:)
     request = Net::HTTP::Post.new(uri)
-    Net::HTTP.start(uri.hostname, uri.port, {use_ssl: uri.scheme == "https"}) do |http|
+    Net::HTTP.start(uri.hostname, uri.port, { use_ssl: uri.scheme == "https" }) do |http|
       http.request(request)
     end
   end

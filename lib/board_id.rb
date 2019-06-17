@@ -19,7 +19,7 @@ class BoardId
       unless missing_env_list.size.zero?
         puts "Missing Environments : #{missing_env_list.join(',')}"
         puts "Please execute again after setting."
-        return exit!
+        exit!
       end
 
       # execute
@@ -31,7 +31,8 @@ class BoardId
       missing_env.push('KEY') if ENV['KEY'].nil?
       missing_env.push('TOKEN') if ENV['TOKEN'].nil?
       missing_env.push('USERNAME') if ENV['USERNAME'].nil?
-      return missing_env
+
+      missing_env
     end
   end
 
@@ -39,18 +40,18 @@ class BoardId
 
   def initialize
     @end_point = 'https://trello.com/1'
-    @target = 'members'
-    @key = ENV['KEY']
-    @token = ENV['TOKEN']
-    @username = ENV['USERNAME']
-    @client = Request.build
+    @target    = 'members'
+    @key       = ENV['KEY']
+    @token     = ENV['TOKEN']
+    @username  = ENV['USERNAME']
+    @client    = Request.build
   end
 
   def get
-    url = "#{end_point}/#{target}/#{username}/boards?key=#{key}&token=#{token}&fields=name"
-    response = client.get(url: url)
-    parsed_body = parse_body(body: response.body)
-    return parsed_body
+    url         = "#{end_point}/#{target}/#{username}/boards?key=#{key}&token=#{token}&fields=name"
+    response    = client.get(url: url)
+
+    parse_body(body: response.body)
   end
 
   def parse_body(body:)
