@@ -9,7 +9,7 @@ class TrelloAddWeekdayToSpecifiedLane
       unless missing_env_list.size.zero?
         puts "Missing Environments : #{missing_env_list.join(',')}"
         puts "Please execute again after setting."
-        return exit!
+        exit!
       end
 
       # execute
@@ -21,7 +21,8 @@ class TrelloAddWeekdayToSpecifiedLane
       missing_env.push('KEY') if ENV['KEY'].nil?
       missing_env.push('TOKEN') if ENV['TOKEN'].nil?
       missing_env.push('LANE_ID') if ENV['LANE_ID'].nil?
-      return missing_env
+
+      missing_env
     end
   end
 
@@ -29,11 +30,11 @@ class TrelloAddWeekdayToSpecifiedLane
 
   def initialize
     @end_point = 'https://trello.com/1'
-    @target = 'cards'
-    @key = ENV['KEY']
-    @token = ENV['TOKEN']
-    @lane_id = ENV['LANE_ID']
-    @client = Request.build
+    @target    = 'cards'
+    @key       = ENV['KEY']
+    @token     = ENV['TOKEN']
+    @lane_id   = ENV['LANE_ID']
+    @client    = Request.build
   end
 
   def post
@@ -47,11 +48,11 @@ class TrelloAddWeekdayToSpecifiedLane
 
   def create_weekday
     current_day = Date.today
-    weekday = []
+    weekday     = []
     1.upto(5).each do |num|
-      day = current_day - (current_day.wday - num.to_i)
+      day                   = current_day - (current_day.wday - num.to_i)
       parse_day_of_the_week = %w(日 月 火 水 木 金 土).at(day.wday)
-      parse_day = day.strftime("%m月%d日 (#{parse_day_of_the_week})")
+      parse_day             = day.strftime("%m月%d日 (#{parse_day_of_the_week})")
       weekday.unshift(parse_day)
     end
     weekday

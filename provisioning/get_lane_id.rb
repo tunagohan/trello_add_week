@@ -3,7 +3,9 @@ require './lib/board_id'
 
 
 body = BoardId.get
-body.each{|b| puts b}
+body.each do |row_hash|
+  puts "#{row_hash["id"]}  :  #{row_hash["name"]}"
+end
 
 puts "------------------------------"
 puts "対象のボードのIDを入力してください。"
@@ -16,7 +18,10 @@ puts "Success."
 puts "------------------------------"
 
 body = LaneId.get(board_id: board_id)
-body.each{|b| puts b}
+
+body.each do |row_hash|
+  puts "#{row_hash["id"]}  :  #{row_hash["name"]}"
+end
 
 puts "※ レーンIDを direnv などで環境変数として登録してください。"
 
