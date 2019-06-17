@@ -52,9 +52,9 @@ class TrelloAddWeekdayToSpecifiedLane
       day = current_day - (current_day.wday - num.to_i)
       parse_day_of_the_week = %w(日 月 火 水 木 金 土).at(day.wday)
       parse_day = day.strftime("%m月%d日 (#{parse_day_of_the_week})")
-      weekday.push(parse_day)
+      weekday.unshift(parse_day)
     end
-    return weekday
+    weekday
   end
 end
 
