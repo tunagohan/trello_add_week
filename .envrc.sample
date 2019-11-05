@@ -1,4 +1,4 @@
 export KEY=
 export TOKEN=
-export USERNAME=
+export TRELLONAME=
 export LANE_ID=

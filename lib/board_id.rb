@@ -30,25 +30,25 @@ class BoardId
       missing_env = []
       missing_env.push('KEY') if ENV['KEY'].nil?
       missing_env.push('TOKEN') if ENV['TOKEN'].nil?
-      missing_env.push('USERNAME') if ENV['USERNAME'].nil?
+      missing_env.push('TRELLONAME') if ENV['TRELLONAME'].nil?
 
       missing_env
     end
   end
 
-  attr_reader :end_point, :target, :key, :token, :username, :client
+  attr_reader :end_point, :target, :key, :token, :trelloname, :client
 
   def initialize
     @end_point = 'https://trello.com/1'
     @target    = 'members'
     @key       = ENV['KEY']
     @token     = ENV['TOKEN']
-    @username  = ENV['USERNAME']
+    @trelloname  = ENV['TRELLONAME']
     @client    = Request.build
   end
 
   def get
-    url         = "#{end_point}/#{target}/#{username}/boards?key=#{key}&token=#{token}&fields=name"
+    url         = "#{end_point}/#{target}/#{trelloname}/boards?key=#{key}&token=#{token}&fields=name"
     response    = client.get(url: url)
 
     parse_body(body: response.body)
