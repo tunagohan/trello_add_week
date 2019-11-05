@@ -35,7 +35,7 @@ https://trello.com/1/authorize?key=<上で取得したKey>&name=&expiration=neve
 
 export KEY=
 export TOKEN=
-export USERNAME=
+export TRELLONAME=
 
 ```
 
@@ -80,7 +80,7 @@ Finish.
 
 export KEY=
 export TOKEN=
-export USERNAME=
+export TRELLONAME=
 # 追加
 export LANE_ID=
 
@@ -110,4 +110,3 @@ posted: 06月14日 (金)
 
 ボート内レーンを出力し直接キー操作で選択。
 POSTしたい内容を入れると送信できる機能をリリース予定です。
-
